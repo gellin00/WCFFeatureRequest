@@ -1,5 +1,6 @@
 package com.wcf.entity;
 
+import java.io.Serializable;
 import java.sql.Date;
 
 import javax.persistence.Column;
@@ -12,39 +13,39 @@ import javax.persistence.Table;
 
 @Entity
 @Table(name="featurerequest")
-public class FeatureRequest {
+public class FeatureRequest implements Serializable {
 
 	@Id
 	@GeneratedValue
 	private Long requestID;
 	
-	@Column
+	@Column(name="title")
 	private String title;
 	
-	@Column
+	@Column(name="description")
 	private String description;
 	
 	@ManyToOne
 	@JoinColumn(name="ClientID")
 	private Client client;
 	
-	@Column
+	@Column(name="priority")
 	private int priority;
 	
-	@Column
+	@Column(name="targetdate")
 	private Date targetDate;
 	
 	@ManyToOne
 	@JoinColumn(name="areaID")
 	private ProductArea productArea;
 	
-	@Column
+	@Column(name="rowstatus")
 	private String rowStatus;
 	
-	@Column
+	@Column(name="createtimestamp")
 	private Date createTimestamp;
 	
-	@Column
+	@Column(name="lastupdatetimestamp")
 	private Date lastUpdateTimestamp;
 	
 	public Long getRequestID() {

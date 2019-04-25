@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -20,6 +21,7 @@ import com.wcf.entity.ProductArea;
 import com.wcf.service.FeatureRequestService;
 
 @RestController
+@RequestMapping("wcfFeatureRequest/api/rest")
 public class FeatureRequestController {
 	@Autowired
 	FeatureRequestService featureReqService;
@@ -67,5 +69,10 @@ public class FeatureRequestController {
 		featureReqService.deleteFeatureRequest(featureRequestID);
 		//TODO add error handling after writing service later
 		return ResponseEntity.ok(HttpStatus.OK);
+	}
+	
+	@GetMapping("/test")
+	public String testEndPoint() {
+		return "Hey it worked";
 	}
 }

@@ -12,9 +12,7 @@ values
 (4, 'Reports');
 
 insert into featurerequest
-(requestID, title, description, client, priority, targetDate, productArea, rowStatus, createTimestamp, lastUpdateTimestamp)
+(requestID, title, description, clientid, priority, targetDate, areaid, rowStatus, createTimestamp, lastUpdateTimestamp)
 values
-(100, 'Feature A improvement', 'Make feature A better than feature B but not better than feature C.', 2, 3, '2019-05-01', 1, 'A',
-CURRENT_TIMESTAMP, CURRENT_TIMESTAMP),
-(101, 'Add edit function for hazmat briefing', 'Completed briefings should be editable from the view screen.', 1, 1, '2019-05-31', 1, 'A',
- CURRENT_TIMESTAMP, CURRENT_TIMESTAMP);
+(100, 'Feature A improvement', 'Make feature A better than feature B but not better than feature C.', 2, 3, '2019-05-01', 1, 'A', CURRENT_TIMESTAMP, CURRENT_TIMESTAMP),
+(101, 'Add edit function for hazmat briefing', 'Completed briefings should be editable from the view screen.', 1, 1, '2019-05-31', 1, 'A', CURRENT_TIMESTAMP, CURRENT_TIMESTAMP);
