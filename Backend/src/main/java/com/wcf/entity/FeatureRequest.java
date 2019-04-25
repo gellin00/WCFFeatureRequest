@@ -2,24 +2,49 @@ package com.wcf.entity;
 
 import java.sql.Date;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+import javax.persistence.Table;
 
 @Entity
+@Table(name="featurerequest")
 public class FeatureRequest {
 
 	@Id
 	@GeneratedValue
 	private Long requestID;
+	
+	@Column
 	private String title;
+	
+	@Column
 	private String description;
+	
+	@ManyToOne
+	@JoinColumn(name="ClientID")
 	private Client client;
+	
+	@Column
 	private int priority;
+	
+	@Column
 	private Date targetDate;
+	
+	@ManyToOne
+	@JoinColumn(name="areaID")
 	private ProductArea productArea;
+	
+	@Column
 	private String rowStatus;
+	
+	@Column
 	private Date createTimestamp;
+	
+	@Column
 	private Date lastUpdateTimestamp;
 	
 	public Long getRequestID() {
