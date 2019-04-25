@@ -4,8 +4,10 @@ import java.util.List;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.wcf.dao.FeatureRequestDAO;
 import com.wcf.entity.Client;
 import com.wcf.entity.FeatureRequest;
 import com.wcf.entity.ProductArea;
@@ -13,50 +15,62 @@ import com.wcf.entity.ProductArea;
 @Service
 public class FeatureRequestService {
 	private static final Logger log = LoggerFactory.getLogger(FeatureRequestService.class);
+	
+	@Autowired
+	FeatureRequestDAO featureRequestDAO;
 
 	public List<FeatureRequest> getAllFeatureRequests() {
-		// TODO Auto-generated method stub
-		return null;
+		return featureRequestDAO.getAllFeatureRequests();
 	}
 
 	public FeatureRequest getFeatureRequestByID(int featureRequestID) {
-		// TODO Auto-generated method stub
-		return null;
+		return featureRequestDAO.getFeatureRequestByID(featureRequestID);
 	}
 
 	public List<Client> getClientList() {
-		// TODO Auto-generated method stub
-		return null;
+		return featureRequestDAO.getClientList();
 	}
 
 	public List<ProductArea> getProductAreaList() {
-		// TODO Auto-generated method stub
-		return null;
+		return featureRequestDAO.getProductAreaList();
 	}
 
-	public void createFeatureRequest(FeatureRequest featureRequest) {
+	public void addFeatureRequest(FeatureRequest featureRequest) {
+		if(doesFeatureRequestExistForClientAndPriority(featureRequest.getClient().getClientID(), featureRequest.getPriority())) {
+			updatePriorityForAdd(featureRequest);
+		}else{
+			featureRequestDAO.createFeatureRequest(featureRequest);
+		}
+	}
+
+	public void editFeatureRequest(FeatureRequest featureRequest) {
 		// TODO Auto-generated method stub
 		
 	}
 
-	public void updateFeatureRequest(FeatureRequest featureRequest) {
-		// TODO Auto-generated method stub
-		
-	}
-
-	public void deleteFeatureRequest(int featureRequestID) {
+	public void removeFeatureRequest(int featureRequestID) {
 		// TODO Auto-generated method stub
 		
 	}
 	
-	private void updatePriorityFromAdd() {
+	private void updatePriorityForAdd(FeatureRequest fr) {
+		//Get all existing 
+		//Find location of new one and insert into list
+		//Remove all prior elements
+		//reorder all priorities
+		//upsert entire list
+	}
+	
+	
+	private void updatePriorityFromEdit() {
 		// TODO Auto-generated method stub
 	}
-	private void updatePriorityFromUpdate() {
+	private void updatePriorityFromRemove() {
 		// TODO Auto-generated method stub
 	}
-	private void updatePriorityFromDelete() {
-		// TODO Auto-generated method stub
+	
+	private boolean doesFeatureRequestExistForClientAndPriority(int clientID, int priority) {
+		return !featureRequestDAO.getFeatureRequestByPriorityAndClient(clientID, priority).isEmpty();
 	}
 
 }

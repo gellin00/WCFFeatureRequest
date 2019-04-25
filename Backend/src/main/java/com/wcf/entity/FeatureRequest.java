@@ -17,7 +17,7 @@ public class FeatureRequest implements Serializable {
 
 	@Id
 	@GeneratedValue
-	private Long requestID;
+	private int requestID;
 	
 	@Column(name="title")
 	private String title;
@@ -26,7 +26,7 @@ public class FeatureRequest implements Serializable {
 	private String description;
 	
 	@ManyToOne
-	@JoinColumn(name="ClientID")
+	@JoinColumn(name="clientID")
 	private Client client;
 	
 	@Column(name="priority")
@@ -48,10 +48,10 @@ public class FeatureRequest implements Serializable {
 	@Column(name="lastupdatetimestamp")
 	private Date lastUpdateTimestamp;
 	
-	public Long getRequestID() {
+	public int getRequestID() {
 		return requestID;
 	}
-	public void setRequestID(Long requestID) {
+	public void setRequestID(int requestID) {
 		this.requestID = requestID;
 	}
 	public String getTitle() {

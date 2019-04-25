@@ -14,16 +14,16 @@ public class ProductArea implements Serializable {
 
 	@Id
 	@GeneratedValue
-	private Long areaID;
+	private int areaID;
 	
 	@Column(name="areaname")
 	private String areaName;
 	
 	
-	public Long getAreaID() {
+	public int getAreaID() {
 		return areaID;
 	}
-	public void setAreaID(Long areaID) {
+	public void setAreaID(int areaID) {
 		this.areaID = areaID;
 	}
 	public String getAreaName() {

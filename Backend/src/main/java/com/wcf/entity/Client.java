@@ -14,15 +14,15 @@ public class Client implements Serializable {
 
 	@Id
 	@GeneratedValue
-	private Long clientID;
+	private int clientID;
 	
 	@Column(name="clientname")
 	private String clientName;
 	
-	public Long getClientID() {
+	public int getClientID() {
 		return clientID;
 	}
-	public void setClientID(Long clientID) {
+	public void setClientID(int clientID) {
 		this.clientID = clientID;
 	}
 	public String getClientName() {

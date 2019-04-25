@@ -2,6 +2,7 @@ package com.wcf.controller;
 
 import java.util.List;
 
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -51,28 +52,52 @@ public class FeatureRequestController {
 	}
 	
 	@PostMapping("/featureRequests")
-	public ResponseEntity<?> createFeatureRequest(@RequestBody FeatureRequest featureRequest) {
-		featureReqService.createFeatureRequest(featureRequest);
-		//TODO add error handling after writing service layer
-		return ResponseEntity.ok(HttpStatus.OK);
+	public ResponseEntity<?> addFeatureRequest(@RequestBody FeatureRequest featureRequest) {
+		if(isValidFeatureRequest(featureRequest)) {
+			featureReqService.addFeatureRequest(featureRequest);
+			return ResponseEntity.ok(HttpStatus.OK);
+		}else {
+			return ResponseEntity.badRequest().build();
+		}
 	}
 	
 	@PutMapping("/featureRequests")
-	public ResponseEntity<?> updateFeatureRequest(@RequestBody FeatureRequest featureRequest){
-		featureReqService.updateFeatureRequest(featureRequest);
-		//TODO add error handling after writing service later
-		return ResponseEntity.ok(HttpStatus.OK);
+	public ResponseEntity<?> editFeatureRequest(@RequestBody FeatureRequest featureRequest){
+		if(isValidFeatureRequest(featureRequest)) {
+			featureReqService.editFeatureRequest(featureRequest);
+			return ResponseEntity.ok(HttpStatus.OK);
+		}else {
+			return ResponseEntity.badRequest().build();
+		}
+		
 	}
 	
 	@DeleteMapping("/featureRequests/{featureRequestID}")
-	public ResponseEntity<?> deleteFeatureRequest(@PathVariable int featureRequestID){
-		featureReqService.deleteFeatureRequest(featureRequestID);
-		//TODO add error handling after writing service later
+	public ResponseEntity<?> removeFeatureRequest(@PathVariable int featureRequestID){
+		featureReqService.removeFeatureRequest(featureRequestID);
 		return ResponseEntity.ok(HttpStatus.OK);
+		
 	}
 	
 	@GetMapping("/test")
 	public String testEndPoint() {
 		return "Hey it worked";
 	}
+	
+	private boolean isValidFeatureRequest(FeatureRequest fr) {
+		return (fr != null 
+				&& StringUtils.isNotBlank(fr.getTitle())
+				&& StringUtils.isNotBlank(fr.getDescription())
+				&& fr.getClient() != null
+				&& fr.getClient().getClientID() > 0
+				&& StringUtils.isNotBlank(fr.getClient().getClientName())
+				&& fr.getPriority() > 0
+				&& fr.getTargetDate() != null
+				&& fr.getProductArea() != null
+				&& fr.getProductArea().getAreaID() > 0
+				&& StringUtils.isNotBlank(fr.getProductArea().getAreaName())
+				&& StringUtils.isNotBlank(fr.getRowStatus())
+				&& fr.getCreateTimestamp() != null
+				&& fr.getLastUpdateTimestamp() != null);
+		}
 }
