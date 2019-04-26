@@ -3,6 +3,8 @@ package com.wcf.controller;
 import java.util.List;
 
 import org.apache.commons.lang3.StringUtils;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -24,6 +26,7 @@ import com.wcf.service.FeatureRequestService;
 @RestController
 @RequestMapping("wcfFeatureRequest/api/rest")
 public class FeatureRequestController {
+	
 	@Autowired
 	FeatureRequestService featureReqService;
 
@@ -57,7 +60,7 @@ public class FeatureRequestController {
 			featureReqService.addFeatureRequest(featureRequest);
 			return ResponseEntity.ok(HttpStatus.OK);
 		}else {
-			return ResponseEntity.badRequest().build();
+			return ResponseEntity.badRequest().body("Request object failed validation. A field was missing.");
 		}
 	}
 	
@@ -67,7 +70,7 @@ public class FeatureRequestController {
 			featureReqService.editFeatureRequest(featureRequest);
 			return ResponseEntity.ok(HttpStatus.OK);
 		}else {
-			return ResponseEntity.badRequest().build();
+			return ResponseEntity.badRequest().body("Request object failed validation. A field was missing.");
 		}
 		
 	}

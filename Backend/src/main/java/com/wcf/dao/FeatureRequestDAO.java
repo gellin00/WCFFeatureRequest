@@ -8,6 +8,7 @@ import javax.persistence.Query;
 
 import org.hibernate.Session;
 import org.springframework.stereotype.Repository;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.wcf.entity.Client;
 import com.wcf.entity.FeatureRequest;
@@ -20,17 +21,20 @@ public class FeatureRequestDAO {
 	private EntityManager entityManager;
 
 	@SuppressWarnings("unchecked")
+	@Transactional
 	public List<FeatureRequest> getAllFeatureRequests() {
 		String q = "FROM FeatureRequest F WHERE F.rowStatus = 'A' ORDER BY F.requestID ASC";
 		Query query = entityManager.createQuery(q);
 		return query.getResultList();
 	}
 
+	@Transactional
 	public FeatureRequest getFeatureRequestByID(int featureRequestID) {
 		return entityManager.find(FeatureRequest.class, featureRequestID);
 	}
 
 	@SuppressWarnings("unchecked")
+	@Transactional
 	public List<Client> getClientList() {
 		String q = "FROM Client C ORDER BY C.clientID ASC";
 		Query query = entityManager.createQuery(q);
@@ -38,6 +42,7 @@ public class FeatureRequestDAO {
 	}
 
 	@SuppressWarnings("unchecked")
+	@Transactional
 	public List<ProductArea> getProductAreaList() {
 		String q = "FROM ProductArea P ORDER BY areaID ASC";
 		Query query = entityManager.createQuery(q);
@@ -45,13 +50,15 @@ public class FeatureRequestDAO {
 	}
 	
 	@SuppressWarnings("unchecked")
+	@Transactional
 	public List<FeatureRequest> getAllFeatureRequestsByClient(int clientID){
-		String q = "FROM FeatureRequest F WHERE F.rowStatus = 'A' AND F.clientID = :clientid ORDER BY F.priority ASC";
+		String q = "FROM FeatureRequest F INNER JOIN F.client C WHERE F.rowStatus = 'A' AND C.clientID = :cid ORDER BY F.priority ASC";
 		Query query = entityManager.createQuery(q);
-		query.setParameter("clientID", clientID);
+		query.setParameter("cid", clientID);
 		return query.getResultList();
 	}
 	
+	@Transactional
 	public void softDeleteFeatureRequest(int reqID) {
 		String q = "UPDATE FeatureRequest F SET F.rowStatus = 'I' WHERE F.requestID = :rowID";
 		Query query = entityManager.createQuery(q);
@@ -59,20 +66,23 @@ public class FeatureRequestDAO {
 		query.executeUpdate();
 	}
 	
+	@Transactional
 	public void createFeatureRequest(FeatureRequest req) {
 		entityManager.persist(req);
 	}
 	
+	@Transactional
 	public void updateFeatureRequest(FeatureRequest req) {
 		Session session = entityManager.unwrap(Session.class);
 		session.saveOrUpdate(req);
 	}
 	
 	@SuppressWarnings("unchecked")
+	@Transactional
 	public List<FeatureRequest> getFeatureRequestByPriorityAndClient(int clientID, int priority) {
-		String q = "FROM FeatureRequest F WHERE F.clientID = :clientID AND F.priority = :pri";
+		String q = "FROM FeatureRequest F INNER JOIN F.client C WHERE C.clientID = :cID AND F.priority = :pri";
 		Query query = entityManager.createQuery(q);
-		query.setParameter("clientID", clientID);
+		query.setParameter("cID", clientID);
 		query.setParameter("pri", priority);
 		
 		return query.getResultList();
