@@ -1,0 +1,9 @@
+<div *ngIf="req">
+    <h2>{{req.title | uppercase}} Details</h2>
+    <div><span>id: </span>{{req.requestID}}</div>
+    <div>
+        <label>Title:
+            <input [(ngModel)]="req.title" placeholder="title"/>
+        </label>
+    </div>
+</div>
