@@ -5,6 +5,7 @@ import java.io.Serializable;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
 
@@ -13,7 +14,7 @@ import javax.persistence.Table;
 public class Client implements Serializable {
 
 	@Id
-	@GeneratedValue
+	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	private int clientID;
 	
 	@Column(name="clientname")
@@ -30,6 +31,13 @@ public class Client implements Serializable {
 	}
 	public void setClientName(String clientName) {
 		this.clientName = clientName;
+	}
+	
+	public Client(int id, String name) {
+		clientID = id;
+		clientName = name;
+	}
+	public Client() {
 	}
 	
 }

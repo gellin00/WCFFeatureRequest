@@ -100,7 +100,6 @@ public class FeatureRequestController {
 				&& fr.getProductArea().getAreaID() > 0
 				&& StringUtils.isNotBlank(fr.getProductArea().getAreaName())
 				&& StringUtils.isNotBlank(fr.getRowStatus())
-				&& fr.getCreateTimestamp() != null
-				&& fr.getLastUpdateTimestamp() != null);
+				&& fr.getCreateTimestamp() != null);
 		}
 }

@@ -5,7 +5,9 @@ import java.sql.Date;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
@@ -16,7 +18,7 @@ import javax.persistence.Table;
 public class FeatureRequest implements Serializable {
 
 	@Id
-	@GeneratedValue
+	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	private int requestID;
 	
 	@Column(name="title")
@@ -44,9 +46,6 @@ public class FeatureRequest implements Serializable {
 	
 	@Column(name="createtimestamp")
 	private Date createTimestamp;
-	
-	@Column(name="lastupdatetimestamp")
-	private Date lastUpdateTimestamp;
 	
 	public int getRequestID() {
 		return requestID;
@@ -102,12 +101,4 @@ public class FeatureRequest implements Serializable {
 	public void setCreateTimestamp(Date createTimestamp) {
 		this.createTimestamp = createTimestamp;
 	}
-	public Date getLastUpdateTimestamp() {
-		return lastUpdateTimestamp;
-	}
-	public void setLastUpdateTimestamp(Date lastUpdateTimestamp) {
-		this.lastUpdateTimestamp = lastUpdateTimestamp;
-	}
-	
-	
 }

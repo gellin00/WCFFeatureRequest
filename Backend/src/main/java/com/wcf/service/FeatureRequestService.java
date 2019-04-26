@@ -55,23 +55,24 @@ public class FeatureRequestService {
 
 	public void removeFeatureRequest(int featureRequestID) {
 		FeatureRequest fr = featureRequestDAO.getFeatureRequestByID(featureRequestID);
-		log.info("FR found: " + (fr != null?"true":"false"));
-		List<FeatureRequest> reqList = new ArrayList<FeatureRequest>(featureRequestDAO.getAllFeatureRequestsByClient(fr.getClient().getClientID()));
-		log.info("reqList size: " + reqList.size());
+		List<FeatureRequest> reqList = featureRequestDAO.getAllFeatureRequestsByClient(fr.getClient().getClientID());
 		
 		//Remove first before any other updates
 		featureRequestDAO.softDeleteFeatureRequest(featureRequestID);
-		log.info("row soft deleted");
 		
-		int frIndex = reqList.indexOf(fr);
-		log.info("frIndex is: " + frIndex);
+		int frIndex = -1;
+		for(int i = 0 ; i < reqList.size() ; i++) {
+			if(fr.getRequestID() == reqList.get(i).getRequestID()) {
+				frIndex = i;
+				break;
+			}
+		}
 		
 		if(frIndex != -1) {
 			reqList.remove(frIndex);
 			if(frIndex != 0) {
 				reqList.subList(0, frIndex).clear();
 			}
-			
 			for(FeatureRequest r : reqList) {
 				r.setPriority(r.getPriority() - 1);
 				featureRequestDAO.updateFeatureRequest(r);

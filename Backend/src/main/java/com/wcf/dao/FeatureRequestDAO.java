@@ -1,5 +1,7 @@
 package com.wcf.dao;
 
+import java.sql.Date;
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.persistence.EntityManager;
@@ -16,7 +18,7 @@ import com.wcf.entity.ProductArea;
 
 @Repository
 public class FeatureRequestDAO {
-
+	
 	@PersistenceContext
 	private EntityManager entityManager;
 
@@ -49,13 +51,36 @@ public class FeatureRequestDAO {
 		return query.getResultList();
 	}
 	
+	private final String SELECT_FEATUREREQUEST_BY_CLIENT_QUERY =
+			"SELECT F.requestID, F.title, F.description, F.clientID, C.clientName, F.priority, F.targetDate, F.areaID, A.areaName, F.rowStatus, F.createTimestamp " +
+			"FROM FeatureRequest F JOIN Client C ON F.clientID = C.clientID " +
+			"JOIN ProductArea A ON F.areaID = A.areaID " +
+			"WHERE F.rowStatus = 'A' AND C.clientID = :cid "+
+			"ORDER BY F.priority ASC ";
 	@SuppressWarnings("unchecked")
 	@Transactional
 	public List<FeatureRequest> getAllFeatureRequestsByClient(int clientID){
-		String q = "FROM FeatureRequest F INNER JOIN F.client C WHERE F.rowStatus = 'A' AND C.clientID = :cid ORDER BY F.priority ASC";
-		Query query = entityManager.createQuery(q);
+		Query query = entityManager.createNativeQuery(SELECT_FEATUREREQUEST_BY_CLIENT_QUERY);
 		query.setParameter("cid", clientID);
-		return query.getResultList();
+
+		List<Object[]> results = query.getResultList();
+		List<FeatureRequest> reqList = new ArrayList<FeatureRequest>();
+		
+		for(Object[] row : results) {
+			FeatureRequest fr = new FeatureRequest();
+			fr.setRequestID((int) row[0]);
+			fr.setTitle((String) row[1]);
+			fr.setDescription((String) row[2]);
+			fr.setClient(new Client((int) row[3], (String) row[4]));
+			fr.setPriority((int) row[5]);
+			fr.setTargetDate((Date) row[6]);
+			fr.setProductArea(new ProductArea((int) row[7], (String) row[8]));
+			fr.setRowStatus((String) row[9]);
+			fr.setCreateTimestamp((Date) row[10]);
+			reqList.add(fr);
+		}
+		
+		return reqList;
 	}
 	
 	@Transactional
@@ -80,8 +105,8 @@ public class FeatureRequestDAO {
 	@SuppressWarnings("unchecked")
 	@Transactional
 	public List<FeatureRequest> getFeatureRequestByPriorityAndClient(int clientID, int priority) {
-		String q = "FROM FeatureRequest F INNER JOIN F.client C WHERE C.clientID = :cID AND F.priority = :pri";
-		Query query = entityManager.createQuery(q);
+		String q = "SELECT F FROM FeatureRequest F INNER JOIN F.client C WHERE C.clientID = :cID AND F.priority = :pri AND F.rowStatus = 'A'";
+		Query query = entityManager.createQuery(q, FeatureRequest.class);
 		query.setParameter("cID", clientID);
 		query.setParameter("pri", priority);
 		
