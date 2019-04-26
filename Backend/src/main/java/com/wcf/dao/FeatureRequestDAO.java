@@ -98,8 +98,7 @@ public class FeatureRequestDAO {
 	
 	@Transactional
 	public void updateFeatureRequest(FeatureRequest req) {
-		Session session = entityManager.unwrap(Session.class);
-		session.saveOrUpdate(req);
+		entityManager.merge(req);
 	}
 	
 	@SuppressWarnings("unchecked")
@@ -112,6 +111,4 @@ public class FeatureRequestDAO {
 		
 		return query.getResultList();
 	}
-	
-	
 }

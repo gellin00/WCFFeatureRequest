@@ -1,10 +1,7 @@
 package com.wcf.service;
 
-import java.util.ArrayList;
 import java.util.List;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -15,7 +12,6 @@ import com.wcf.entity.ProductArea;
 
 @Service
 public class FeatureRequestService {
-	private static final Logger log = LoggerFactory.getLogger(FeatureRequestService.class);
 	
 	@Autowired
 	FeatureRequestDAO featureRequestDAO;
@@ -82,7 +78,7 @@ public class FeatureRequestService {
 	}
 	
 	private void createFeatureRequestWithPriorityUpdate(FeatureRequest fr) {
-		List<FeatureRequest> reqList = new ArrayList<FeatureRequest>(featureRequestDAO.getAllFeatureRequestsByClient(fr.getClient().getClientID()));
+		List<FeatureRequest> reqList = featureRequestDAO.getAllFeatureRequestsByClient(fr.getClient().getClientID());
 		
 		prepareFeatureRequstListForPriorityUpdate(reqList, fr);
 
@@ -92,7 +88,7 @@ public class FeatureRequestService {
 	}
 	
 	private void updateFeatureRequestWithPriorityUpdate(FeatureRequest fr) {
-		List<FeatureRequest> reqList = new ArrayList<FeatureRequest>(featureRequestDAO.getAllFeatureRequestsByClient(fr.getClient().getClientID()));
+		List<FeatureRequest> reqList = featureRequestDAO.getAllFeatureRequestsByClient(fr.getClient().getClientID());
 		
 		reqList.removeIf(x -> fr.getRequestID() == x.getRequestID());
 		
