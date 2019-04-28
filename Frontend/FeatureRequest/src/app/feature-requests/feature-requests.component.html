@@ -1,9 +1,10 @@
 <h2>Active Feature Requests</h2>
 <ul class="reqs">
-    <li *ngFor="let req of reqs" 
-        (click)="onSelect(req)" 
-        [class.selected]="req === selectedReq">
-        <span class="badge">{{req.requestID}}</span> {{req.title}}
+    <li *ngFor="let req of reqs" >
+        <!--[class.selected]="req === selectedReq">
+        (click)="onSelect(req)" -->
+        <a routerLink="/featureDetails/{{req.requestID}}">
+            <span class="badge">{{req.requestID}}</span> {{req.title}}
+        </a>
     </li>
 </ul>
-<app-feature-detail [req]="selectedReq"></app-feature-detail>

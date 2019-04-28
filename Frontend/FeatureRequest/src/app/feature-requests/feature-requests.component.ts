@@ -1,8 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 
 import { FeatureRequest } from '../featureRequest';
-import { mockFeatureReq } from '../mockfeatureReq';
-import { MOCKFEATUREREQUESTS } from '../mockFeatureRequests';
+import { FeatureRequestService } from '../feature-request.service';
 
 @Component({
   selector: 'app-feature-requests',
@@ -11,15 +10,22 @@ import { MOCKFEATUREREQUESTS } from '../mockFeatureRequests';
 })
 export class FeatureRequestsComponent implements OnInit {
 
-  reqs = MOCKFEATUREREQUESTS;
-  selectedReq: mockFeatureReq;
+  reqs: FeatureRequest[];
+  //selectedReq: mockFeatureReq;
 
-  constructor() { }
+  constructor(private reqService: FeatureRequestService) { }
 
   ngOnInit() {
+    this.getFeatureRequests();
+  }
+  
+  getFeatureRequests(): void {
+    this.reqService.getFeatureRequests()
+      .subscribe(reqs => this.reqs = reqs);
   }
 
-  onSelect(req: mockFeatureReq): void {
-    this.selectedReq = req;
-  }
+ /** onSelect(req: mockFeatureReq): void {
+  *  this.selectedReq = req;
+  *}
+  */
 }

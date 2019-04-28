@@ -1,5 +1,10 @@
-        <a href="/" title="Home" rel="home" id="logo">
+        <a href="https://www.wcf.com/" title="Home" rel="home" id="logo">
                 <img src="assets/images/WCFLogo_0.jpg" alt="Home">
         </a>
         <h1>{{title}}</h1>
-        <app-feature-requests></app-feature-requests>
+        <nav>
+                <a routerLink="/dashboard">Dashboard</a>
+                <a routerLink="/featureRequests">Feature Requests</a>
+        </nav>
+        <router-outlet></router-outlet>
+        <app-messages></app-messages>

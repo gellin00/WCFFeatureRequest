@@ -1,7 +1,9 @@
 import { Component, OnInit, Input } from '@angular/core';
+import { ActivatedRoute } from '@angular/router';
+import { Location } from '@angular/common';
 
+import { FeatureRequestService } from '../feature-request.service';
 import { FeatureRequest } from '../featureRequest';
-import { mockFeatureReq } from '../mockfeatureReq';
 
 @Component({
   selector: 'app-feature-detail',
@@ -10,11 +12,26 @@ import { mockFeatureReq } from '../mockfeatureReq';
 })
 export class FeatureDetailComponent implements OnInit {
 
-  @Input() req: mockFeatureReq;
+  req: FeatureRequest;
   
-  constructor() { }
+  constructor(
+    private route: ActivatedRoute,
+    private location: Location,
+    private reqService: FeatureRequestService
+    ) { }
 
-  ngOnInit() {
+  ngOnInit(): void{
+    this.getReq();
+  }
+
+  getReq(): void {
+    const id = +this.route.snapshot.paramMap.get('id');
+    this.reqService.getFeatureRequest(id)
+      .subscribe(req => this.req = req);
+  }
+
+  goBack(): void{
+    this.location.back();
   }
 
 }
