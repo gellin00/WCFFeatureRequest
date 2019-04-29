@@ -1,10 +1,13 @@
 <h2>Active Feature Requests</h2>
 <ul class="reqs">
     <li *ngFor="let req of reqs" >
-        <!--[class.selected]="req === selectedReq">
-        (click)="onSelect(req)" -->
         <a routerLink="/featureDetails/{{req.requestID}}">
             <span class="badge">{{req.requestID}}</span> {{req.title}}
         </a>
+        <button class="delete" title="delete feature request"
+        (click)="delete(req)">x</button>
     </li>
 </ul>
+<nav>
+    <a routerLink="/newFeature">Create New Feature Request</a>
+</nav>

@@ -1,5 +1,4 @@
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
 import { Location } from '@angular/common';
 
 import { FeatureRequestService } from '../feature-request.service';
@@ -8,35 +7,28 @@ import { Client } from '../client';
 import { ProductArea } from '../productArea';
 
 @Component({
-  selector: 'app-feature-detail',
-  templateUrl: './feature-detail.component.html',
-  styleUrls: ['./feature-detail.component.css']
+  selector: 'app-feature-add',
+  templateUrl: './feature-add.component.html',
+  styleUrls: ['./feature-add.component.css']
 })
-export class FeatureDetailComponent implements OnInit {
+export class FeatureAddComponent implements OnInit {
 
   req: FeatureRequest;
   clientList: Client[];
   productAreaList: ProductArea[];
   priorityList: number[] = [1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20];
-  
-  constructor(
-    private route: ActivatedRoute,
+
+  constructor(  
     private location: Location,
     private reqService: FeatureRequestService
     ) { }
 
-  ngOnInit(): void{
-    this.getReq();
+  ngOnInit(){
     this.getClientList();
     this.getProductAreaList();
+    this.req = new FeatureRequest();
   }
 
-  getReq(): void {
-    const id = +this.route.snapshot.paramMap.get('id');
-    this.reqService.getFeatureRequest(id)
-      .subscribe(req => this.req = req);
-  }
-  
   getClientList(): void{
     this.reqService.getClientList()
     .subscribe(client => this.clientList = client);
@@ -52,8 +44,7 @@ export class FeatureDetailComponent implements OnInit {
   }
 
   save(): void{
-    this.reqService.updateFeatureRequest(this.req)
+    this.reqService.addFeatureRequest(this.req)
       .subscribe(() => this.goBack());
   }
-
 }

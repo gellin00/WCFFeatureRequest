@@ -1,0 +1,42 @@
+<div *ngIf="req">
+    <h2>New Feature Request</h2>
+    <div>
+        <label>Title:
+            <input [(ngModel)]="req.title" placeholder="Title" />
+        </label>
+    </div>
+    <div>
+        <label>Description:
+            <input [(ngModel)]="req.description" placeholder="Description" />
+        </label>
+    </div>
+    <div>
+        <label>Client:
+            <select [(ngModel)]="req.client">
+                <option *ngFor="let client of clientList" [ngValue]="client">{{client.clientName}}</option>
+            </select>
+        </label>
+    </div>
+    <div>
+        <label>Priority:
+            <select [(ngModel)]="req.priority">
+                <option *ngFor="let num of priorityList" [value]="num">{{num}}</option>
+            </select>
+        </label>
+    </div>
+    <div>
+        <label>Product Area:
+            <select [(ngModel)]="req.productArea">
+                <option *ngFor="let area of productAreaList" [ngValue]="area">{{area.areaName}}</option>
+            </select> 
+        </label>
+    </div>
+    <div>
+        <label>Target Date:
+                <input type="text" [ngModel]="req.targetDate" 
+                (ngModelChange)="req.targetDate=$event" placeholder="YYYY-MM-DD">
+        </label>
+    </div>
+    <button (click)="goBack()">go back</button>
+    <button (click)="save()">save</button>
+  </div>

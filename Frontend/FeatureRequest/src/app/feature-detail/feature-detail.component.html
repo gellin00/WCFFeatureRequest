@@ -1,10 +1,48 @@
 <div *ngIf="req">
     <h2>{{req.title | uppercase}} Details</h2>
-    <div><span>id: </span>{{req.requestID}}</div>
+    <div><span class="spanLabel">Id: </span>{{req.requestID}}</div>
     <div>
         <label>Title:
-            <input [(ngModel)]="req.title" placeholder="title"/>
+            <input [(ngModel)]="req.title" placeholder="title" />
         </label>
     </div>
+    <div>
+        <label>Description:
+            <input [(ngModel)]="req.description" placeholder="description" />
+        </label>
+    </div>
+    <div>
+        <label>Client:
+            <select [(ngModel)]="req.client.clientID">
+                <option *ngFor="let client of clientList" [value]="client.clientID">{{client.clientName}}</option>
+            </select>
+        </label>
+    </div>
+    <div>
+        <label>Priority:
+            <select [(ngModel)]="req.priority">
+                <option *ngFor="let num of priorityList" [value]="num">{{num}}</option>
+            </select>
+        </label>
+    </div>
+    <div>
+        <label>Product Area:
+            <select [(ngModel)]="req.productArea.areaID">
+                <option *ngFor="let area of productAreaList" [value]="area.areaID">{{area.areaName}}</option>
+            </select>
+        </label>
+    </div>
+    <div>
+        <label>Target Date:
+            <input type="text" [ngModel]="req.targetDate | date:'yyyy-MM-dd'" (ngModelChange)="req.targetDate=$event">
+        </label>
+    </div>
+    <div>
+        <span class="spanLabel">Created: </span><br>
+            {{req.createTimestamp | date}}
+        
+    </div>
+
     <button (click)="goBack()">go back</button>
+    <button (click)="save()">save</button>
 </div>

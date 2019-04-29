@@ -1,5 +1,6 @@
 package com.wcf.service;
 
+import java.sql.Date;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -33,6 +34,9 @@ public class FeatureRequestService {
 	}
 
 	public void addFeatureRequest(FeatureRequest featureRequest) {
+		featureRequest.setCreateTimestamp(new Date(System.currentTimeMillis()));
+		featureRequest.setRowStatus("A");
+		
 		if(doesFeatureRequestExistForClientAndPriority(featureRequest.getClient().getClientID(), featureRequest.getPriority())) {
 			createFeatureRequestWithPriorityUpdate(featureRequest);
 		}else{
@@ -40,21 +44,28 @@ public class FeatureRequestService {
 		}
 	}
 
-	public void editFeatureRequest(FeatureRequest fr) {
-		FeatureRequest existing = featureRequestDAO.getFeatureRequestByID(fr.getRequestID());
-		if(existing.getPriority() == fr.getPriority()) {
-			featureRequestDAO.updateFeatureRequest(fr);
-		}else {
-			updateFeatureRequestWithPriorityUpdate(fr);
+	public void editFeatureRequest(FeatureRequest updatedFr) {
+		FeatureRequest existing = featureRequestDAO.getFeatureRequestByID(updatedFr.getRequestID());
+		if(existing.getClient().getClientID() == updatedFr.getClient().getClientID()
+				&& existing.getPriority() == updatedFr.getPriority()) {
+			featureRequestDAO.updateFeatureRequest(updatedFr);
+		}else if(existing.getClient().getClientID() != updatedFr.getClient().getClientID()){
+			removeFeatureRequestFromPriorityOrder(existing);
+			updateFeatureRequestWithPriorityUpdate(updatedFr);
+		}else{
+			updateFeatureRequestWithPriorityUpdate(updatedFr);
 		}
 	}
 
 	public void removeFeatureRequest(int featureRequestID) {
 		FeatureRequest fr = featureRequestDAO.getFeatureRequestByID(featureRequestID);
-		List<FeatureRequest> reqList = featureRequestDAO.getAllFeatureRequestsByClient(fr.getClient().getClientID());
-		
-		//Remove first before any other updates
+		removeFeatureRequestFromPriorityOrder(fr);
 		featureRequestDAO.softDeleteFeatureRequest(featureRequestID);
+	}
+	
+	public void removeFeatureRequestFromPriorityOrder(FeatureRequest fr) {
+		
+		List<FeatureRequest> reqList = featureRequestDAO.getAllFeatureRequestsByClient(fr.getClient().getClientID());
 		
 		int frIndex = -1;
 		for(int i = 0 ; i < reqList.size() ; i++) {

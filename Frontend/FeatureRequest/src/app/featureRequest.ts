@@ -1,17 +1,13 @@
+import { Client } from './client';
+import { ProductArea } from './productArea';
+
 export class FeatureRequest{
     requestID: number;
     title: string;
     description: string;
-    Client: {
-        clientID: number;
-        clientName: string;
-    };
+    client: Client;
     priority: number;
     targetDate: Date;
-    ProductArea: {
-        areaID: number;
-        areaName: string;
-    };
-    rowStatus: string;
+    productArea: ProductArea;
     createTimestamp: Date;
 }

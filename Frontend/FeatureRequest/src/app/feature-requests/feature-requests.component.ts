@@ -11,7 +11,6 @@ import { FeatureRequestService } from '../feature-request.service';
 export class FeatureRequestsComponent implements OnInit {
 
   reqs: FeatureRequest[];
-  //selectedReq: mockFeatureReq;
 
   constructor(private reqService: FeatureRequestService) { }
 
@@ -21,11 +20,11 @@ export class FeatureRequestsComponent implements OnInit {
   
   getFeatureRequests(): void {
     this.reqService.getFeatureRequests()
-      .subscribe(reqs => this.reqs = reqs);
+      .subscribe(req => this.reqs = req);
   }
 
- /** onSelect(req: mockFeatureReq): void {
-  *  this.selectedReq = req;
-  *}
-  */
+  delete(req: FeatureRequest): void{
+    this.reqs = this.reqs.filter(r => r !== req);
+    this.reqService.deleteFeatureRequest(req).subscribe();
+  }
 }

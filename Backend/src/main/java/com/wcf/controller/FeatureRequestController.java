@@ -98,8 +98,6 @@ public class FeatureRequestController {
 				&& fr.getTargetDate() != null
 				&& fr.getProductArea() != null
 				&& fr.getProductArea().getAreaID() > 0
-				&& StringUtils.isNotBlank(fr.getProductArea().getAreaName())
-				&& StringUtils.isNotBlank(fr.getRowStatus())
-				&& fr.getCreateTimestamp() != null);
+				&& StringUtils.isNotBlank(fr.getProductArea().getAreaName()));
 		}
 }

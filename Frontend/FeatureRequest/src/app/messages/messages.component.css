@@ -20,6 +20,9 @@ h2 {
     border-radius: 4px;
     cursor: pointer;
     cursor: hand;
+    color: #888;
+    margin-bottom: 12px;
+    text-transform: capitalize;
   }
   button:hover {
     background-color: #cfd8dc;
@@ -28,8 +31,4 @@ h2 {
     background-color: #eee;
     color: #aaa;
     cursor: auto;
-  }
-  button.clear {
-    color: #888;
-    margin-bottom: 12px;
   }

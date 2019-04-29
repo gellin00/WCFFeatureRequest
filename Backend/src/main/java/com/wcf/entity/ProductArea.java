@@ -38,7 +38,6 @@ public class ProductArea implements Serializable {
 		areaID = id;
 		areaName = name;
 	}
-
 	public ProductArea() {
 	}
 	

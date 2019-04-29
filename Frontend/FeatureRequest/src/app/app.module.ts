@@ -9,6 +9,7 @@ import { FeatureRequestsComponent } from './feature-requests/feature-requests.co
 import { FeatureDetailComponent } from './feature-detail/feature-detail.component';
 import { MessagesComponent } from './messages/messages.component';
 import { DashboardComponent } from './dashboard/dashboard.component';
+import { FeatureAddComponent } from './feature-add/feature-add.component';
 
 
 @NgModule({
@@ -17,7 +18,8 @@ import { DashboardComponent } from './dashboard/dashboard.component';
     FeatureRequestsComponent,
     FeatureDetailComponent,
     MessagesComponent,
-    DashboardComponent
+    DashboardComponent,
+    FeatureAddComponent
   ],
   imports: [
     BrowserModule,
