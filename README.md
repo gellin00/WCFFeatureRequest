@@ -19,18 +19,18 @@ First off you'll need to clone or download the repository to a location of your 
 Start by opening a terminal of your choice and navigating to the /WCFFEatureRequest/Backend directory at the location you cloned the repo.
 You may build the application and execute the resulting jar if you like, or simply run the 'mvn spring-boot:run' command.
 After which you should see spring boot load and launch the webservice. Leave this terminal open while you use the rest of the application.
-
 You can test that the service is running successfully by
-visiting http://localhost:8080/wcfFeatureRequest/api/rest/test in a web browser. If you would like to view the default test
-data loaded by the H2 database, visit http://localhost:8080/h2-console
+visiting http://localhost:8080/wcfFeatureRequest/api/rest/test in a web browser. 
 
+If you would like to view the default test
+data loaded by the H2 database, visit http://localhost:8080/h2-console
 When prompted to login, ensure the driver class is set to 'org.h2.Driver' and the JDBC URL is 'jdbc:h2:mem:testdb'. Enter a 
 user name of 'sa' and no password. Click the 'connect' button. You'll be shown the console where you may execute queries against
 the data in the in-memory database.
 
 ### The Angular application
 Open another terminal of your choice (leaving the first running) and navigate to /WCFFeatureRequest/Frontend/FeatureRequest.
-Once there, run the 'ng serve --o' command. This should build the web application and open a browser window to 
+Once there, run the 'ng serve --o' command. This will build the web application and open a browser window to 
 http://localhost:4200/featureRequests
 
 You should see a page displaying several Feature Request items. Here you can add a new feature request item, 
