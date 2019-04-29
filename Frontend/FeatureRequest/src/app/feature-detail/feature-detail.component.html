@@ -33,9 +33,10 @@
         </label>
     </div>
     <div>
-        <label>Target Date:
-            <input type="text" [ngModel]="req.targetDate | date:'yyyy-MM-dd'" (ngModelChange)="req.targetDate=$event">
-        </label>
+        <label>Target Date: </label>{{req.targetDate | date:'yyyy-MM-dd'}}
+    </div>
+    <div>
+        <input type="text" #newTargetDate placeholder="YYYY-MM-DD"/>
     </div>
     <div>
         <span class="spanLabel">Created: </span><br>
@@ -44,5 +45,5 @@
     </div>
 
     <button (click)="goBack()">go back</button>
-    <button (click)="save()">save</button>
+    <button (click)="save(newTargetDate.value)">save</button>
 </div>

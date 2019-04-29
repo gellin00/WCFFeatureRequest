@@ -51,7 +51,8 @@ export class FeatureDetailComponent implements OnInit {
     this.location.back();
   }
 
-  save(): void{
+  save(newTarget: string): void{
+    this.req.targetDate = new Date(newTarget);
     this.reqService.updateFeatureRequest(this.req)
       .subscribe(() => this.goBack());
   }

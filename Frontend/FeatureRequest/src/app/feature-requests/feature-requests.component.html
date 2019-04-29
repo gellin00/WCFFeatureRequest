@@ -1,4 +1,7 @@
 <h2>Active Feature Requests</h2>
+<nav>
+    <a routerLink="/newFeature">Create New Feature Request</a>
+</nav>
 <ul class="reqs">
     <li *ngFor="let req of reqs" >
         <a routerLink="/featureDetails/{{req.requestID}}">
@@ -11,6 +14,3 @@
         (click)="delete(req)">x</button>
     </li>
 </ul>
-<nav>
-    <a routerLink="/newFeature">Create New Feature Request</a>
-</nav>
