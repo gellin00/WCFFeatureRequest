@@ -2,7 +2,10 @@
 <ul class="reqs">
     <li *ngFor="let req of reqs" >
         <a routerLink="/featureDetails/{{req.requestID}}">
-            <span class="badge">{{req.requestID}}</span> {{req.title}}
+            <span class="badge">{{req.requestID}}</span> 
+            <span class="rowLabels">{{req.title}}</span> |
+            <span class="rowLabels">{{req.client.clientName}}</span> |
+            <span class="rowLabels">Priority: {{req.priority}}</span>
         </a>
         <button class="delete" title="delete feature request"
         (click)="delete(req)">x</button>

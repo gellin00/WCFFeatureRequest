@@ -8,7 +8,6 @@ import { AppComponent } from './app.component';
 import { FeatureRequestsComponent } from './feature-requests/feature-requests.component';
 import { FeatureDetailComponent } from './feature-detail/feature-detail.component';
 import { MessagesComponent } from './messages/messages.component';
-import { DashboardComponent } from './dashboard/dashboard.component';
 import { FeatureAddComponent } from './feature-add/feature-add.component';
 
 
@@ -18,7 +17,6 @@ import { FeatureAddComponent } from './feature-add/feature-add.component';
     FeatureRequestsComponent,
     FeatureDetailComponent,
     MessagesComponent,
-    DashboardComponent,
     FeatureAddComponent
   ],
   imports: [

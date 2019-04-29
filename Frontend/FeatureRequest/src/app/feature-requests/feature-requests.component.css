@@ -2,7 +2,7 @@
     margin: 0 0 2em 0;
     list-style-type: none;
     padding: 0;
-    width: 15em;
+    width: 27em;
   }
   .reqs li {
     cursor: pointer;
@@ -24,7 +24,7 @@
     text-decoration: none;
     position: relative;
     display: block;
-    width: 250px;
+    width: 500px;
   }
   .reqs a:hover {
     color: #607D8B;
@@ -63,7 +63,7 @@
   }
   button.delete {
     position: relative;
-    left: 194px;
+    left: 375px;
     top: -32px;
     background-color: gray !important;
     color: white;
@@ -85,4 +85,8 @@
   }
   nav a.active {
     color: #039be5;
+  }
+
+  .reqs .rowLabels{
+    padding: 5px 10px;
   }
